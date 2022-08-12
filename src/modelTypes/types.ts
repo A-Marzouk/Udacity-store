@@ -6,7 +6,7 @@ export type Product = {
 };
 
 export type User = {
-  id: String;
+  id: String | null;
   username: String;
   firstName: String;
   lastName: String;

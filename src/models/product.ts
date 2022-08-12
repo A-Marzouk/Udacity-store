@@ -3,7 +3,7 @@ import Client from "../database/db";
 import { Product } from "../modelTypes/types";
 
 export class ProductStore {
-  async index(): Promise<Product[]> {
+  static async index(): Promise<Product[]> {
     try {
       // @ts-ignore
       const conn = await Client.connect();
@@ -19,7 +19,7 @@ export class ProductStore {
     }
   }
 
-  async show(id: string): Promise<Product> {
+  static async show(id: string): Promise<Product> {
     try {
       const sql = "SELECT * FROM products WHERE id=($1)";
       // @ts-ignore
@@ -35,38 +35,32 @@ export class ProductStore {
     }
   }
 
-  async create(b: Product): Promise<Product> {
+  static async create(b: Product): Promise<Product> {
     try {
       const sql =
-        "INSERT INTO products (name, price, category VALUES($1, $2, $3) RETURNING *";
+        "INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *";
       // @ts-ignore
       const conn = await Client.connect();
-
       const result = await conn.query(sql, [b.name, b.price, b.category]);
-
       const Product = result.rows[0];
-
       conn.release();
-
       return Product;
     } catch (err) {
       throw new Error(`Could not add new Product ${b.name}. Error: ${err}`);
     }
   }
 
-  async delete(id: string): Promise<Product> {
+  static async delete(id: string): Promise<Boolean> {
     try {
-      const sql = "DELETE FROM product WHERE id=($1)";
+      const sql = "DELETE FROM products WHERE id=($1)";
       // @ts-ignore
       const conn = await Client.connect();
 
       const result = await conn.query(sql, [id]);
 
-      const Product = result.rows[0];
-
       conn.release();
 
-      return Product;
+      return result.rowCount === 1;
     } catch (err) {
       throw new Error(`Could not delete Product ${id}. Error: ${err}`);
     }

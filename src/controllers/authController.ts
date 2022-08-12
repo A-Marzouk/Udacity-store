@@ -24,7 +24,7 @@ export const login = async (
     const result = await conn.query(sql, [username]);
 
     if (!result.rows.length)
-      return Promise.reject(Error("username or password is incorrect"));
+      throw new Error("username or password is incorrect");
 
     const user = result.rows[0];
 
