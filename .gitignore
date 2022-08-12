@@ -1,0 +1,7 @@
+.env
+node_modules
+dist
+# Project exclude paths
+/src/database/db.js
+/src/modelTypes/types.js
+/src/server.js
