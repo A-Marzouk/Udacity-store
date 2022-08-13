@@ -4,5 +4,5 @@ node_modules
 dist
 # Project exclude paths
 /src/database/db.js
-/src/modelTypes/types.js
+/src/types/models.d.js
 /src/server.js

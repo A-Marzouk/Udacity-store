@@ -1,4 +1,4 @@
-import { User } from "../modelTypes/types";
+import { User } from "../types/models";
 import bcrypt from "bcrypt";
 // @ts-ignore
 import Client from "../database/db";

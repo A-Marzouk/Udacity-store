@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { UserStore } from "../../models/user";
 
 const jwt = require("jsonwebtoken");
 
@@ -15,7 +16,7 @@ export const requireAuthentication = async (
     try {
       const decoded = jwt.verify(token, process.env.BCRYPT_SECRET);
 
-      // attach the user to the request here...
+      req.authUser = await UserStore.getById(decoded.id);
 
       next();
     } catch (e) {
@@ -25,7 +26,8 @@ export const requireAuthentication = async (
   }
 
   if (!token) {
-    res.status(401);
-    throw new Error("You need to sign in.");
+    res.status(401).send({
+      error: "You need to sign in to complete this action.",
+    });
   }
 };

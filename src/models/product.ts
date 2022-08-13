@@ -1,6 +1,6 @@
 // @ts-ignore
 import Client from "../database/db";
-import { Product } from "../modelTypes/types";
+import { Product } from "../types/models";
 
 export class ProductStore {
   static async index(): Promise<Product[]> {

@@ -6,12 +6,13 @@ import {
   addProduct,
   deleteProduct,
 } from "../../controllers/productsController";
+import { requireAuthentication } from "../../middleware/Auth/authMiddleware";
 
 const router = express.Router();
 
 router.get("/", getProducts);
 router.get("/:id", getProductById);
-router.post("/", validateAddProduct, addProduct);
-router.delete("/:id", validateAddProduct, deleteProduct);
+router.post("/", requireAuthentication, validateAddProduct, addProduct);
+router.delete("/:id", requireAuthentication, validateAddProduct, deleteProduct);
 
 export default router;

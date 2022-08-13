@@ -14,7 +14,7 @@ export type User = {
 };
 
 export type Order = {
-  id: Number;
+  id: Number | null;
   user_id: Number;
-  status: string;
+  status: string | null;
 };

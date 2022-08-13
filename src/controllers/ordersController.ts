@@ -19,8 +19,20 @@ export const addProduct = async (request: Request, response: Response) => {
   }
 };
 
-export const index = async (request: Request, response: Response) => {};
+export const getUserOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { userId } = req.params;
 
-export const show = async (request: Request, response: Response) => {};
+  try {
+    const order = await OrderStore.getOrderByUserId(userId);
 
-export const create = async (request: Request, response: Response) => {};
+    if (!order) throw new Error("Order not found!");
+
+    res.status(200).send({ order });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -1,16 +1,10 @@
 import express from "express";
-import {
-  addProduct,
-  index,
-  show,
-  create,
-} from "../../controllers/ordersController";
+import { addProduct, getUserOrder } from "../../controllers/ordersController";
+import { requireAuthentication } from "../../middleware/Auth/authMiddleware";
 
 const router = express.Router();
 
-router.get("/orders", index);
-router.get("/orders/:id", show);
-router.post("/orders", create);
-router.post("/orders/:id/products", addProduct);
+router.get("/:userId", requireAuthentication, getUserOrder);
+router.post("/products", requireAuthentication, addProduct);
 
 export default router;

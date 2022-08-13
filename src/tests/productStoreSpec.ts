@@ -1,14 +1,12 @@
 import { ProductStore } from "../models/product";
 
-const store = new ProductStore();
-
-describe("Book Model", () => {
+describe("Product Model", () => {
   it("should have an index method", () => {
-    expect(store.index).toBeDefined();
+    expect(ProductStore.index).toBeDefined();
   });
 
-  it("create method should add a book", async () => {
-    const result = await store.create({
+  it("create method should add a product", async () => {
+    const result = await ProductStore.create({
       id: 1,
       name: "Ferrari car",
       price: 9999999,
@@ -20,7 +18,7 @@ describe("Book Model", () => {
   });
 
   it("index method should return a list of products", async () => {
-    const result = await store.index();
+    const result = await ProductStore.index();
     expect(result).toBeTruthy();
   });
 });
